@@ -1,54 +1,30 @@
-AM_CPPFLAGS=-I$(top_srcdir)/include
+AM_CFLAGS = -D_GNU_SOURCE @CURSES_CFLAGS@ -DCURSESINC="@CURSESINC@"
+LDADD = @CURSESLIB@
 
-SUBDIRS = include alsactl utils m4 po alsa-info
-if ALSAMIXER
-SUBDIRS += alsamixer
-endif
-if HAVE_MIXER
-SUBDIRS += amixer
-endif
-if HAVE_RAWMIDI
-SUBDIRS += amidi
-endif
-if ALSACONF
-SUBDIRS += alsaconf
-endif
-if HAVE_PCM
-SUBDIRS += aplay iecset speaker-test axfer
-if ALSALOOP
-SUBDIRS += alsaloop
-endif
-if BAT
-SUBDIRS += bat
-endif
-endif
-if HAVE_SEQ
-SUBDIRS += seq
-endif
-if HAVE_UCM
-SUBDIRS += alsaucm
-endif
-if HAVE_TOPOLOGY
-SUBDIRS += topology
-endif
+bin_PROGRAMS = alsamixer
+alsamixer_SOURCES = card_select.c card_select.h \
+		bindings.c bindings.h \
+		cli.c \
+		colors.c colors.h \
+		curskey.c curskey.h \
+		configparser.c configparser.h \
+		device_name.c device_name.h \
+		die.c die.h \
+		mainloop.c mainloop.h \
+		mem.c mem.h \
+		menu_widget.c menu_widget.h \
+		mixer_clickable.c mixer_clickable.h \
+		mixer_controls.c mixer_controls.h \
+		mixer_display.c mixer_display.h \
+		mixer_widget.c mixer_widget.h \
+		proc_files.c proc_files.h \
+		textbox.c textbox.h \
+		utils.c utils.h \
+		volume_mapping.c volume_mapping.h \
+		widget.c widget.h
+man_MANS = alsamixer.1
+EXTRA_DIST = alsamixer.1
+alsamixer_CPPFLAGS = -I$(top_srcdir)/include
 
-EXTRA_DIST= README.md TODO gitcompile
-AUTOMAKE_OPTIONS=foreign
-ACLOCAL_AMFLAGS = -I m4
-
-rpm: dist
-	$(MAKE) -C $@
-
-dist-hook:
-	-chmod -R a+r $(distdir)
-	@if ! test -z "$(AMTAR)"; then \
-		$(AMTAR) --create --verbose --file=- $(distdir) | bzip2 -c -9 > $(distdir).tar.bz2 ; \
-	else \
-		$(TAR) --create --verbose --file=- $(distdir) | bzip2 -c -9 > $(distdir).tar.bz2 ; \
-	fi
-
-install-data-hook:
-	$(MKDIR_P) -m 0755 $(DESTDIR)$(ASOUND_STATE_DIR)
-
-DISTCHECK_CONFIGURE_FLAGS = \
-        --with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
+#LDFLAGS = -static
+#CFLAGS += -g -Wall
