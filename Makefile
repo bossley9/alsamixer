@@ -3,23 +3,13 @@ MANUAL=$(BINARY).1
 
 PREFIX=/usr/local
 BIN=$(PREFIX)/bin
-MAN=$(PREFIX)/share/man/man1/$(MANUAL)
+MAN=$(PREFIX)/share/man/man1
 
 LDFLAGS=
 
 prefix=$(PREFIX)
 
-am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
-install_sh_PROGRAM = $(install_sh) -c
 transform = $(program_transform_name)
-NORMAL_INSTALL = :
-PRE_INSTALL = :
-POST_INSTALL = :
-NORMAL_UNINSTALL = :
-PRE_UNINSTALL = :
-POST_UNINSTALL = :
-build_triplet = x86_64-pc-linux-gnu
-host_triplet = x86_64-pc-linux-gnu
 bin_PROGRAMS = alsamixer$(EXEEXT)
 subdir = alsamixer
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -32,10 +22,6 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/include/aconfig.h
-CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_alsamixer_OBJECTS = alsamixer-card_select.$(OBJEXT) \
 	alsamixer-bindings.$(OBJEXT) alsamixer-cli.$(OBJEXT) \
@@ -63,7 +49,6 @@ AM_V_at = $(am__v_at_$(V))
 am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 DEFAULT_INCLUDES = -I. -I$(top_builddir)/include
 depcomp = $(SHELL) $(top_srcdir)/depcomp
-am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/alsamixer-bindings.Po \
 	./$(DEPDIR)/alsamixer-card_select.Po \
 	./$(DEPDIR)/alsamixer-cli.Po ./$(DEPDIR)/alsamixer-colors.Po \
@@ -109,36 +94,7 @@ am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
     *) f=$$p;; \
   esac;
-am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
-am__install_max = 40
-am__nobase_strip_setup = \
-  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
-am__nobase_strip = \
-  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
-am__nobase_list = $(am__nobase_strip_setup); \
-  for p in $$list; do echo "$$p $$p"; done | \
-  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
-  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
-    if (++n[$$2] == $(am__install_max)) \
-      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
-    END { for (dir in files) print dir, files[dir] }'
-am__base_list = \
-  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
-  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__uninstall_files_from_dir = { \
-  test -z "$$files" \
-    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
-    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
-         $(am__cd) "$$dir" && rm -f $$files; }; \
-  }
-man1dir = $(mandir)/man1
-NROFF = nroff
 MANS = $(man_MANS)
-am__uniquify_input = $(AWK) '\
-  BEGIN { nonempty = 0; } \
-  { items[$$0] = 1; nonempty = 1; } \
-  END { if (nonempty) { for (i in items) print i; }; } \
-'
 ACLOCAL = ${SHELL} /home/sam/Repos/alsamixer/missing aclocal-1.16
 ALSACTL_DAEMONSWITCH = /etc/alsa/state-daemon.conf
 ALSACTL_PIDFILE_DIR = /var/run
@@ -161,17 +117,10 @@ INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LIBICONV = -liconv
 LIBINTL = 
 LIBS = -lasound -lm -ldl -lpthread
-LN_S = ln -s
-LTLIBICONV = -liconv
-LTLIBINTL = 
 MAKEINFO = ${SHELL} /home/sam/Repos/alsamixer/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
-MSGFMT = /usr/bin/msgfmt
-MSGMERGE = /usr/bin/msgmerge
-MSGMERGE_FOR_MSGFMT_OPTION = --for-msgfmt
 NCURSESW_CFLAGS = -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 
 NCURSESW_LIBS = -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw 
 NCURSES_CFLAGS = 
@@ -247,7 +196,6 @@ top_build_prefix = ../
 top_builddir = .
 top_srcdir = ..
 udevrulesdir = /usr/lib/udev/rules.d
-xmlto_available = 
 AM_CFLAGS = -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
 LDADD = -lformw -lmenuw -lpanelw -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw 
 alsamixer_SOURCES = card_select.c card_select.h \
@@ -275,14 +223,10 @@ man_MANS = alsamixer.1
 alsamixer_CPPFLAGS = -I$(top_srcdir)/include
 all: all-am
 
-am--refresh:
-	echo am--refresh temp
-
 .SUFFIXES:
 .SUFFIXES: .c .o .obj
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 
-Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+Makefile: $(top_builddir)/config.status
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 
@@ -292,7 +236,7 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 
 $(am__aclocal_m4_deps):
 install-binPROGRAMS: $(bin_PROGRAMS)
-	@$(NORMAL_INSTALL)
+	mkdir -p $(BIN)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
 	if test -n "$$list"; then \
 	  echo " $(MKDIR_P) '$(DESTDIR)$(bindir)'"; \
@@ -521,7 +465,7 @@ alsamixer-widget.obj: widget.c
 
 install: Makefile $(PROGRAMS) $(MANS)
 	@$(MAKE) $(AM_MAKEFLAGS) install-binPROGRAMS
-	cp -f $(MANUAL) $(MAN)
+	cp -f $(MANUAL) $(MAN)/$(MANUAL)
 
 clean:
 	rm -rf *.o
@@ -529,7 +473,7 @@ clean:
 
 uninstall: clean
 	rm -rf $(BIN)/$(BINARY)
-	rm -rf $(MAN)
+	rm -rf $(MAN)/$(MANUAL)
 
 .PHONY: all all-am am--depfiles clean \
 	install \
