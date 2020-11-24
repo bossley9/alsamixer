@@ -29,49 +29,11 @@ OBJ = \
 COMPILE = $(CC) $(AM_CFLAGS) $(CFLAGS)
 LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 
+*.o:
+	$(COMPILE) -c -o $*.o $*.c
+
 $(BINARY): $(OBJ)
 	$(LINK) $(OBJ) $(LDADD) $(LIBS)
-
-card_select.o:
-	$(COMPILE) -c -o card_select.o card_select.c
-bindings.o:
-	$(COMPILE) -c -o bindings.o bindings.c
-cli.o:
-	$(COMPILE) -c -o cli.o cli.c
-colors.o:
-	$(COMPILE) -c -o colors.o colors.c
-curskey.o:
-	$(COMPILE) -c -o curskey.o curskey.c
-configparser.o:
-	$(COMPILE) -c -o configparser.o configparser.c
-device_name.o:
-	$(COMPILE) -c -o device_name.o device_name.c
-die.o:
-	$(COMPILE) -c -o die.o die.c
-mainloop.o:
-	$(COMPILE) -c -o mainloop.o mainloop.c
-mem.o:
-	$(COMPILE) -c -o mem.o mem.c
-menu_widget.o:
-	$(COMPILE) -c -o menu_widget.o menu_widget.c
-mixer_clickable.o:
-	$(COMPILE) -c -o mixer_clickable.o mixer_clickable.c
-mixer_controls.o:
-	$(COMPILE) -c -o mixer_controls.o mixer_controls.c
-mixer_display.o:
-	$(COMPILE) -c -o mixer_display.o mixer_display.c
-mixer_widget.o:
-	$(COMPILE) -c -o mixer_widget.o mixer_widget.c
-proc_files.o:
-	$(COMPILE) -c -o proc_files.o proc_files.c
-textbox.o:
-	$(COMPILE) -c -o textbox.o textbox.c
-utils.o:
-	$(COMPILE) -c -o utils.o utils.c
-volume_mapping.o:
-	$(COMPILE) -c -o volume_mapping.o volume_mapping.c
-widget.o:
-	$(COMPILE) -c -o widget.o widget.c
 
 all: $(BINARY)
 
@@ -89,4 +51,4 @@ uninstall: clean
 	rm -rf $(BIN)/$(BINARY)
 	rm -rf $(MAN)/$(MANUAL)
 
-.PHONY: install clean uninstall $(BINARY) $(OBJ)
+.PHONY: install clean uninstall $(BINARY) $(OBJ) $(SRC)
