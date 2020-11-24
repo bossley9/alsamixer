@@ -1,67 +1,14 @@
 BINARY=alsamixer
+MANUAL=$(BINARY).1
+
 PREFIX=/usr/local
 BIN=$(PREFIX)/bin
-MAN=$(PREFIX)/share/man/man1/$(BINARY).1
+MAN=$(PREFIX)/share/man/man1/$(MANUAL)
 
 LDFLAGS=
 
 prefix=$(PREFIX)
 
-am__is_gnu_make = { \
-  if test -z '$(MAKELEVEL)'; then \
-    false; \
-  elif test -n '$(MAKE_HOST)'; then \
-    true; \
-  elif test -n '$(MAKE_VERSION)' && test -n '$(CURDIR)'; then \
-    true; \
-  else \
-    false; \
-  fi; \
-}
-am__make_running_with_option = \
-  case $${target_option-} in \
-      ?) ;; \
-      *) echo "am__make_running_with_option: internal error: invalid" \
-              "target option '$${target_option-}' specified" >&2; \
-         exit 1;; \
-  esac; \
-  has_opt=no; \
-  sane_makeflags=$$MAKEFLAGS; \
-  if $(am__is_gnu_make); then \
-    sane_makeflags=$$MFLAGS; \
-  else \
-    case $$MAKEFLAGS in \
-      *\\[\ \	]*) \
-        bs=\\; \
-        sane_makeflags=`printf '%s\n' "$$MAKEFLAGS" \
-          | sed "s/$$bs$$bs[$$bs $$bs	]*//g"`;; \
-    esac; \
-  fi; \
-  skip_next=no; \
-  strip_trailopt () \
-  { \
-    flg=`printf '%s\n' "$$flg" | sed "s/$$1.*$$//"`; \
-  }; \
-  for flg in $$sane_makeflags; do \
-    test $$skip_next = yes && { skip_next=no; continue; }; \
-    case $$flg in \
-      *=*|--*) continue;; \
-        -*I) strip_trailopt 'I'; skip_next=yes;; \
-      -*I?*) strip_trailopt 'I';; \
-        -*O) strip_trailopt 'O'; skip_next=yes;; \
-      -*O?*) strip_trailopt 'O';; \
-        -*l) strip_trailopt 'l'; skip_next=yes;; \
-      -*l?*) strip_trailopt 'l';; \
-      -[dEDm]) skip_next=yes;; \
-      -[JT]) skip_next=yes;; \
-    esac; \
-    case $$flg in \
-      *$$target_option*) has_opt=yes; break;; \
-    esac; \
-  done; \
-  test $$has_opt = yes
-am__make_dryrun = (target_option=n; $(am__make_running_with_option))
-am__make_keepgoing = (target_option=k; $(am__make_running_with_option))
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_PROGRAM = $(install_sh) -c
 transform = $(program_transform_name)
@@ -85,7 +32,6 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/aconfig.h
 CONFIG_CLEAN_VPATH_FILES =
@@ -154,7 +100,6 @@ am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(alsamixer_SOURCES)
-DIST_SOURCES = $(alsamixer_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -189,21 +134,11 @@ am__uninstall_files_from_dir = { \
 man1dir = $(mandir)/man1
 NROFF = nroff
 MANS = $(man_MANS)
-am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 am__uniquify_input = $(AWK) '\
   BEGIN { nonempty = 0; } \
   { items[$$0] = 1; nonempty = 1; } \
   END { if (nonempty) { for (i in items) print i; }; } \
 '
-am__define_uniq_tagged_files = \
-  list='$(am__tagged_files)'; \
-  unique=`for i in $$list; do \
-    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
-  done | $(am__uniquify_input)`
-ETAGS = etags
-CTAGS = ctags
-am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
-DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = ${SHELL} /home/sam/Repos/alsamixer/missing aclocal-1.16
 ALSACTL_DAEMONSWITCH = /etc/alsa/state-daemon.conf
 ALSACTL_PIDFILE_DIR = /var/run
@@ -337,7 +272,6 @@ alsamixer_SOURCES = card_select.c card_select.h \
 		widget.c widget.h
 
 man_MANS = alsamixer.1
-EXTRA_DIST = alsamixer.1
 alsamixer_CPPFLAGS = -I$(top_srcdir)/include
 all: all-am
 
@@ -389,9 +323,6 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 alsamixer$(EXEEXT): $(alsamixer_OBJECTS) $(EXTRA_alsamixer_DEPENDENCIES) 
 	@rm -f alsamixer$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(alsamixer_OBJECTS) $(alsamixer_LDADD) $(LIBS)
-
-distclean-compile:
-	-rm -f *.tab.c
 
 include ./$(DEPDIR)/alsamixer-bindings.Po # am--include-marker
 include ./$(DEPDIR)/alsamixer-card_select.Po # am--include-marker
@@ -587,202 +518,21 @@ alsamixer-widget.o: widget.c
 alsamixer-widget.obj: widget.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(alsamixer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT alsamixer-widget.obj -MD -MP -MF $(DEPDIR)/alsamixer-widget.Tpo -c -o alsamixer-widget.obj `if test -f 'widget.c'; then $(CYGPATH_W) 'widget.c'; else $(CYGPATH_W) '$(srcdir)/widget.c'; fi`
 	$(AM_V_at)$(am__mv) $(DEPDIR)/alsamixer-widget.Tpo $(DEPDIR)/alsamixer-widget.Po
-install-man1: $(man_MANS)
-	@$(NORMAL_INSTALL)
-	@list1=''; \
-	list2='$(man_MANS)'; \
-	test -n "$(man1dir)" \
-	  && test -n "`echo $$list1$$list2`" \
-	  || exit 0; \
-	echo " $(MKDIR_P) '$(DESTDIR)$(man1dir)'"; \
-	$(MKDIR_P) "$(DESTDIR)$(man1dir)" || exit 1; \
-	{ for i in $$list1; do echo "$$i"; done;  \
-	if test -n "$$list2"; then \
-	  for i in $$list2; do echo "$$i"; done \
-	    | sed -n '/\.1[a-z]*$$/p'; \
-	fi; \
-	} | while read p; do \
-	  if test -f $$p; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; echo "$$p"; \
-	done | \
-	sed -e 'n;s,.*/,,;p;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
-	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,' | \
-	sed 'N;N;s,\n, ,g' | { \
-	list=; while read file base inst; do \
-	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
-	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(man1dir)/$$inst'"; \
-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(man1dir)/$$inst" || exit $$?; \
-	  fi; \
-	done; \
-	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
-	while read files; do \
-	  test -z "$$files" || { \
-	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(man1dir)'"; \
-	    $(INSTALL_DATA) $$files "$(DESTDIR)$(man1dir)" || exit $$?; }; \
-	done; }
 
-ID: $(am__tagged_files)
-	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-am
-TAGS: tags
-
-tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
-	set x; \
-	here=`pwd`; \
-	$(am__define_uniq_tagged_files); \
-	shift; \
-	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
-	  test -n "$$unique" || unique=$$empty_fix; \
-	  if test $$# -gt 0; then \
-	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
-	      "$$@" $$unique; \
-	  else \
-	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
-	      $$unique; \
-	  fi; \
-	fi
-ctags: ctags-am
-
-CTAGS: ctags
-ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
-	$(am__define_uniq_tagged_files); \
-	test -z "$(CTAGS_ARGS)$$unique" \
-	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
-	     $$unique
-
-GTAGS:
-	here=`$(am__cd) $(top_builddir) && pwd` \
-	  && $(am__cd) $(top_srcdir) \
-	  && gtags -i $(GTAGS_ARGS) "$$here"
-cscopelist: cscopelist-am
-
-cscopelist-am: $(am__tagged_files)
-	list='$(am__tagged_files)'; \
-	case "$(srcdir)" in \
-	  [\\/]* | ?:[\\/]*) sdir="$(srcdir)" ;; \
-	  *) sdir=$(subdir)/$(srcdir) ;; \
-	esac; \
-	for i in $$list; do \
-	  if test -f "$$i"; then \
-	    echo "$(subdir)/$$i"; \
-	  else \
-	    echo "$$sdir/$$i"; \
-	  fi; \
-	done >> $(top_builddir)/cscope.files
-
-distclean-tags:
-	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
-
-distdir: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) distdir-am
-
-distdir-am: $(DISTFILES)
-	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
-	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
-	list='$(DISTFILES)'; \
-	  dist_files=`for file in $$list; do echo $$file; done | \
-	  sed -e "s|^$$srcdirstrip/||;t" \
-	      -e "s|^$$topsrcdirstrip/|$(top_builddir)/|;t"`; \
-	case $$dist_files in \
-	  */*) $(MKDIR_P) `echo "$$dist_files" | \
-			   sed '/\//!d;s|^|$(distdir)/|;s,/[^/]*$$,,' | \
-			   sort -u` ;; \
-	esac; \
-	for file in $$dist_files; do \
-	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	  if test -d $$d/$$file; then \
-	    dir=`echo "/$$file" | sed -e 's,/[^/]*$$,,'`; \
-	    if test -d "$(distdir)/$$file"; then \
-	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
-	    fi; \
-	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	      cp -fpR $(srcdir)/$$file "$(distdir)$$dir" || exit 1; \
-	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
-	    fi; \
-	    cp -fpR $$d/$$file "$(distdir)$$dir" || exit 1; \
-	  else \
-	    test -f "$(distdir)/$$file" \
-	    || cp -p $$d/$$file "$(distdir)/$$file" \
-	    || exit 1; \
-	  fi; \
-	done
-
-all-am: Makefile $(PROGRAMS) $(MANS)
-installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"; do \
-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
-	done
-
-install: all-am
-	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-man
-
-install-strip:
-	if test -z '$(STRIP)'; then \
-	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
-	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
-	      install; \
-	else \
-	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
-	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
-	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
-	fi
-
-distclean-generic:
-	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+install: Makefile $(PROGRAMS) $(MANS)
+	@$(MAKE) $(AM_MAKEFLAGS) install-binPROGRAMS
+	cp -f $(MANUAL) $(MAN)
 
 clean:
 	rm -rf *.o
-	rm -rf alsamixer
-
-install-exec-am: install-binPROGRAMS
-
-install-man: install-man1
-
-uninstall-binPROGRAMS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
-	files=`for p in $$list; do echo "$$p"; done | \
-	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
-	      -e 's/$$/$(EXEEXT)/' \
-	`; \
-	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(bindir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(bindir)" && rm -f $$files
-
-uninstall-man1:
-	@$(NORMAL_UNINSTALL)
-	@list=''; test -n "$(man1dir)" || exit 0; \
-	files=`{ for i in $$list; do echo "$$i"; done; \
-	l2='$(man_MANS)'; for i in $$l2; do echo "$$i"; done | \
-	  sed -n '/\.1[a-z]*$$/p'; \
-	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
-	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
-	dir='$(DESTDIR)$(man1dir)'; $(am__uninstall_files_from_dir)
+	rm -rf $(BINARY)
 
 uninstall: clean
 	rm -rf $(BIN)/$(BINARY)
 	rm -rf $(MAN)
 
-.MAKE: install-strip
-
-.PHONY: CTAGS GTAGS TAGS all all-am am--depfiles clean \
-	cscopelist-am ctags ctags-am \
-	distclean distclean-compile distclean-generic distclean-tags \
-	distdir info info-am install \
+.PHONY: all all-am am--depfiles clean \
+	install \
 	install-binPROGRAMS install-data \
 	install-exec install-exec-am \
-	install-man install-man1 \
-	install-strip \
-	installdirs \
-	ps ps-am tags tags-am uninstall \
-	uninstall-binPROGRAMS uninstall-man1
-
-.PRECIOUS: Makefile
-
-
-#LDFLAGS = -static
-#CFLAGS += -g -Wall
-
-# Tell versions [3.59,3.63) of GNU make to not export all variables.
-# Otherwise a system limit (for SysV at least) may be exceeded.
-.NOEXPORT:
+	uninstall
