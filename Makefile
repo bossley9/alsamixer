@@ -22,74 +22,52 @@ OBJECTS = \
 	proc_files.o textbox.o \
 	utils.o volume_mapping.o \
 	widget.o
-DEFAULT_INCLUDES = -I.
-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(AM_CFLAGS) $(CFLAGS)
-LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-DEFS = -DHAVE_CONFIG_H
+COMPILE = $(CC) $(AM_CFLAGS) $(CFLAGS)
+LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 LIBS = -lasound -lm -ldl -lpthread
-AM_CFLAGS = -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
+AM_CFLAGS = -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
 LDADD = -lformw -lmenuw -lpanelw -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw 
 
 $(BINARY): $(OBJECTS)
 	$(LINK) $(OBJECTS) $(LDADD) $(LIBS)
-
 card_select.o:
 	$(COMPILE) -c -o card_select.o card_select.c
-
 bindings.o:
 	$(COMPILE) -c -o bindings.o bindings.c
-
 cli.o:
 	$(COMPILE) -c -o cli.o cli.c
-
 colors.o:
 	$(COMPILE) -c -o colors.o colors.c
-
 curskey.o:
 	$(COMPILE) -c -o curskey.o curskey.c
-
 configparser.o:
 	$(COMPILE) -c -o configparser.o configparser.c
-
 device_name.o:
 	$(COMPILE) -c -o device_name.o device_name.c
-
 die.o:
 	$(COMPILE) -c -o die.o die.c
-
 mainloop.o:
 	$(COMPILE) -c -o mainloop.o mainloop.c
-
 mem.o:
 	$(COMPILE) -c -o mem.o mem.c
-
 menu_widget.o:
 	$(COMPILE) -c -o menu_widget.o menu_widget.c
-
 mixer_clickable.o:
 	$(COMPILE) -c -o mixer_clickable.o mixer_clickable.c
-
 mixer_controls.o:
 	$(COMPILE) -c -o mixer_controls.o mixer_controls.c
-
 mixer_display.o:
 	$(COMPILE) -c -o mixer_display.o mixer_display.c
-
 mixer_widget.o:
 	$(COMPILE) -c -o mixer_widget.o mixer_widget.c
-
 proc_files.o:
 	$(COMPILE) -c -o proc_files.o proc_files.c
-
 textbox.o:
 	$(COMPILE) -c -o textbox.o textbox.c
-
 utils.o:
 	$(COMPILE) -c -o utils.o utils.c
-
 volume_mapping.o:
 	$(COMPILE) -c -o volume_mapping.o volume_mapping.c
-
 widget.o:
 	$(COMPILE) -c -o widget.o widget.c
 
@@ -101,12 +79,10 @@ install: $(BINARY)
 
 clean:
 	rm -rf *.o
-	rm -rf *.obj
-	rm -rf *.d
 	rm -rf $(BINARY)
 
 uninstall: clean
 	rm -rf $(BIN)/$(BINARY)
 	rm -rf $(MAN)/$(MANUAL)
 
-.PHONY: install clean uninstall $(BINARY)
+.PHONY: install clean uninstall $(BINARY) $(OBJECTS)
