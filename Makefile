@@ -6,8 +6,11 @@ BIN=$(PREFIX)/bin
 MAN=$(PREFIX)/share/man/man1
 
 CFLAGS = -O2 -Wall -pipe -g
+LIBS = -lasound -lm -ldl -lpthread
+AM_CFLAGS = -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
+LDADD = -lformw -lmenuw -lpanelw -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw
 
-OBJECTS = \
+OBJ = \
 	card_select.o \
 	bindings.o cli.o \
 	colors.o curskey.o \
@@ -22,14 +25,13 @@ OBJECTS = \
 	proc_files.o textbox.o \
 	utils.o volume_mapping.o \
 	widget.o
+
 COMPILE = $(CC) $(AM_CFLAGS) $(CFLAGS)
 LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
-LIBS = -lasound -lm -ldl -lpthread
-AM_CFLAGS = -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
-LDADD = -lformw -lmenuw -lpanelw -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw 
 
-$(BINARY): $(OBJECTS)
-	$(LINK) $(OBJECTS) $(LDADD) $(LIBS)
+$(BINARY): $(OBJ)
+	$(LINK) $(OBJ) $(LDADD) $(LIBS)
+
 card_select.o:
 	$(COMPILE) -c -o card_select.o card_select.c
 bindings.o:
@@ -71,7 +73,9 @@ volume_mapping.o:
 widget.o:
 	$(COMPILE) -c -o widget.o widget.c
 
-install: $(BINARY)
+all: $(BINARY)
+
+install: all
 	mkdir -p $(BIN)
 	cp -f $(BINARY) $(BIN)/$(BINARY)
 	mkdir -p $(MAN)
@@ -85,4 +89,4 @@ uninstall: clean
 	rm -rf $(BIN)/$(BINARY)
 	rm -rf $(MAN)/$(MANUAL)
 
-.PHONY: install clean uninstall $(BINARY) $(OBJECTS)
+.PHONY: install clean uninstall $(BINARY) $(OBJ)
