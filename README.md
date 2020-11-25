@@ -1,28 +1,25 @@
-# alsa-utils
-## Advanced Linux Sound Architecture - Utilities
+# alsamixer
+a keybinding modification to the original
+[alsamixer](https://github.com/alsa-project/alsa-utils)
 
-![Build alsa-utils](https://github.com/alsa-project/alsa-utils/workflows/Build%20alsa-utils/badge.svg?branch=master)
+This project is a modified version of the original alsamixer with vim-like keybindings.
+For some reason the alsa-utils devs haven't ever changed the default keybindings, and the
+default keybinds conflict with my workflow.
 
-This package contains the command line utilities for the ALSA project.
-The package can be compiled only with the installed ALSA driver and
-the ALSA C library (alsa-lib).
+This project is only a stripped-down version of
+[alsa-utils](https://github.com/alsa-project/alsa-utils).
+Because I only wanted to modify alsamixer, I removed the other utilities.
 
-Utility         | Description
-----------------|----------------------------------------------------
-alsaconf	| the ALSA driver configurator script
-alsa-info       | a script to gather information about ALSA subsystem
-alsactl		| an utility for soundcard settings management
-aplay/arecord	| an utility for the playback / capture of .wav,.voc,.au files
-axfer		| an utility to transfer audio data frame (enhancement of aplay)
-amixer		| a command line mixer
-alsamixer	| a ncurses mixer
-amidi		| a utility to send/receive sysex dumps or other MIDI data
-iecset		| a utility to show/set the IEC958 status bits
-speaker-test    | a speaker test utility
-alsaloop        | a software loopback for PCM devices
-alsaucm         | Use Case Manager utility
-alsabat         | a sound tester for ALSA sound card driver
-alsatplg        | ALSA topology compiler
+## Installation
+Installation is as simple as compilation with `make`, where `#` indicates elevated privileges.
+```
+# make clean install
+```
+You can uninstall using the same process.
+```
+# make uninstall
+```
 
-You may give a look for more information about the ALSA project to URL
-http://www.alsa-project.org.
+Unlike the original alsa-utils, I have included a pre-built makefile that simplifies the
+installation process. Feel free to open any issues regarding the makefile or modify the
+makefile to fit your operating system.
