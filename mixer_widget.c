@@ -187,28 +187,31 @@ bool select_card_by_name(const char *device_name)
 static void show_help(void)
 {
 	const char *help[] = {
-		_("Esc     Exit"),
-		_("F1 ? H  Help"),
-		_("F2 /    System information"),
-		_("F3      Show playback controls"),
-		_("F4      Show capture controls"),
-		_("F5      Show all controls"),
-		_("Tab     Toggle view mode (F3/F4/F5)"),
-		_("F6 S    Select sound card"),
-		_("L       Redraw screen"),
+		_("Esc/q      Exit"),
+		_("?          Help"),
+    _("i          System information"),
+		_("1          Show playback controls"),
+		_("2          Show capture controls"),
+		_("3          Show all controls"),
+		_("Tab        Toggle view mode (1/2/3)"),
+		_("6 S        Select sound card"),
+		/* _("L       Redraw screen"), */
 		"",
-		_("Left    Move to the previous control"),
-		_("Right   Move to the next control"),
+		_("h Left     Move to the previous control"),
+		_("l Right    Move to the next control"),
 		"",
-		_("Up/Down    Change volume"),
-		_("+ -        Change volume"),
-		_("Page Up/Dn Change volume in big steps"),
-		_("End        Set volume to 0%"),
-		_("0-9        Set volume to 0%-90%"),
-		_("Q W E      Increase left/both/right volumes"),
+		_("k/j        Change volume"),
+		/* _("+ -        Change volume"), */
+		_("u/d        Change volume in big steps"),
+		/* _("End        Set volume to 0%"), */
+		_("0          Set volume to 0%"),
+		/* _("0-9        Set volume to 0%-90%"), */
+		/* _("Q W E      Increase left/both/right volumes"), */
+		_("e/r        Increase left//right volumes"),
 		/* TRANSLATORS: or Y instead of Z */
-		_("Z X C      Decrease left/both/right volumes"),
-		_("B          Balance left and right volumes"),
+		/* _("Z X C      Decrease left/both/right volumes"), */
+		_("x/c        Decrease left/both/right volumes"),
+		_("=          Balance left and right volumes"),
 		"",
 		_("M          Toggle mute"),
 		/* TRANSLATORS: or , . */
@@ -222,6 +225,8 @@ static void show_help(void)
 		_("  Tim Janik"),
 		_("  Jaroslav Kysela <perex@perex.cz>"),
 		_("  Clemens Ladisch <clemens@ladisch.de>"),
+		"",
+		_("Keybindings are modified by Sam Bossley."),
 	};
 	show_text(help, ARRAY_SIZE(help), _("Help"));
 }

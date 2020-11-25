@@ -86,16 +86,16 @@ To be reminded of these keystrokes, hit the \fIh\fP key.
 .SS
 General Controls
 
-The \fILeft\fP and \fIright arrow\fP keys are used to select the
+The \fIh\fP and \fIl\fP keys are used to select the
 channel (or device, depending on your preferred terminology). You can
 also use \fIn\fP ("next") and \fIp\fP ("previous").
 
-The \fIUp\fP and \fIDown Arrows\fP control the volume for the
+The \fIk\fP and \fIj\fP keys control the volume for the
 currently selected device. You can also use \fI+\fP or \fI\-\fP for the
 same purpose. Both the left and right signals are affected. For
 independent left and right control, see below.
  
-The \fIB\fP or \fI=\fP key adjusts the balance of volumes on left and
+The \fI=\fP key adjusts the balance of volumes on left and
 right channels.
 
 \fIM\fP toggles muting for the current channel (both left and right).
@@ -107,53 +107,51 @@ mute left and right independently by using \fI,\fP (or \fI<\fP) and
 channels have recording enabled, they will have their recording function
 disabled first. This only works for valid input channels, of course.
 
-\fIL\fP re-draws the screen.
+.\" \fIL\fP re-draws the screen.
 
 .SS
 View Mode Controls
 Function keys are used to change view modes.
-You can switch to the help mode and the proc info mode via \fIF1\fP and
-\fIF2\fP keys, respectively.
-On terminals that can't use function keys like gnome\-terminal, \fI?\fP and
-\fI/\fP keys can be used alternatively for help and proc modes.
+You can switch to the help mode and the proc info mode via \fI?\fP and
+\fIi\fP keys, respectively.
 
-\fIF3\fP, \fIF4\fP and \fIF5\fP keys are used to switch to playback, capture
+The \fI1\fP, \fI2\fP and \fI3\fP keys are used to switch to playback, capture
 and all view mode, respectively.  \fITAB\fP key toggles the
 current view mode circularly.
 
 .SS
 Quick Volume Changes
 
-\fIPageUp\fP increases volume by 5.
+\fIu\fP increases volume by 5.
 
-\fIPageDown\fP decreases volume by 5.
+\fId\fP decreases volume by 5.
 
-\fIEnd\fP sets volume to 0.
+\fI0\fP sets volume to 0.
 
 You can also control left & right levels for the current channel
 independently, as follows:
 
-[\fIQ\fP | \fIW\fP | \fIE\fP ]  -- turn UP [ left | both | right ]
+[\fIe\fP | \fIr\fP ]  -- turn UP [ left | right ]
 
-[\fIZ\fP | \fIX\fP | \fIC\fP ] -- turn DOWN [ left | both | right ]   
+[\fIx\fP | \fIc\fP ] -- turn DOWN [ left | right ]   
 
-If the currently selected mixer channel is not a stereo channel, then
-all UP keys will work like \fIW\fP, and all DOWN keys will work like \fIX\fP.
+.\" If the currently selected mixer channel is not a stereo channel, then
+.\" all UP keys will work like \fIW\fP, and all DOWN keys will work like \fIX\fP.
 
-The number keys from \fI0\fP to \fI9\fP are to change the absolute volume
-quickly.  They correspond to 0 to 90% volume.
+.\" The number keys from \fI0\fP to \fI9\fP are to change the absolute volume
+.\" quickly.  They correspond to 0 to 90% volume.
 
 .SS
 Selecting the Sound Card
 
-You can select another sound card by pressing the \fIF6\fP or \fIS\fP keys.
+You can select another sound card by pressing the \fI6\fP or \fIS\fP keys.
 This will show a list of available sound cards to choose from,
 and an entry to enter the mixer device name by hand.
 
 .SS
 Exiting
 
-Quit the program with \fIALT Q\fP, or by hitting \fIESC\fP.
+Quit the program with \fIq\fP or \fIESC\fP.
 Please note that you might need to hit \fIESC\fP twice on some terminals
 since it's regarded as a prefix key.
 
@@ -187,5 +185,7 @@ fault. Plain old \fBxterm\fP seems to be fine.
 has been written by Tim Janik and
 been further improved by Jaroslav Kysela <perex@perex.cz>
 and Clemens Ladisch <clemens@ladisch.de>.
+
+Keybindings are modified by Sam Bossley.
 
 This manual page was provided by Paul Winkler <zarmzarm@erols.com>.
