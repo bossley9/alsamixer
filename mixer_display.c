@@ -102,10 +102,10 @@ void init_mixer_layout(void)
 		_("Item:"),
 	};
 	const char *labels_right[4] = {
-		_("F1:  Help"),
-		_("F2:  System information"),
-		_("F6:  Select sound card"),
-		_("Esc: Exit"),
+		_("?:  Help"),
+		_("i:  System information"),
+		_("s:  Select sound card"),
+		_("q: Exit"),
 	};
 	unsigned int label_width_left, label_width_right;
 	unsigned int right_x, i;
@@ -213,7 +213,7 @@ void display_view_mode(void)
 		wmove(mixer_widget.window, 3, info_items_left - 1);
 		wattrset(mixer_widget.window, attrs.mixer_text);
 		for (i = 0; i < 3; ++i) {
-			wprintw(mixer_widget.window, " F%c:", '3' + i);
+			wprintw(mixer_widget.window, " %c:", '1' + i);
 			if (has_view_mode && (int)view_mode == i) {
 				wattrset(mixer_widget.window, attrs.mixer_active);
 				wprintw(mixer_widget.window, "[%s]", modes[i]);
