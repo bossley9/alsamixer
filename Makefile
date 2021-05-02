@@ -10,10 +10,6 @@ LIBS = -lasound -lm -ldl -lpthread
 AM_CFLAGS = -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600  -DCURSESINC="<ncurses.h>"
 LDADD = -lformw -lmenuw -lpanelw -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -lncursesw
 
-RM=rm -f
-MKDIR_P=mkdir -p
-CP=cp -f
-
 OBJ = \
 	card_select.o \
 	bindings.o cli.o \
@@ -33,26 +29,22 @@ OBJ = \
 COMPILE = $(CC) $(AM_CFLAGS) $(CFLAGS)
 LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 
-$(OBJ):
+all: $(BINARY)
 	$(COMPILE) -c -o $*.o $*.c
-
-$(BINARY): $(OBJ)
 	$(LINK) $(OBJ) $(LDADD) $(LIBS)
 
-all: $(BINARY)
-
-install: all
-	$(MKDIR_P) $(BIN)
-	$(CP) $(BINARY) $(BIN)/$(BINARY)
-	$(MKDIR_P) $(MAN)
-	$(CP) $(MANUAL) $(MAN)/$(MANUAL)
+install:
+	@mkdir -p $(BIN)
+	@mv $(BINARY) $(BIN)/$(BINARY)
+	@mkdir -p $(MAN)
+	@mv $(MANUAL) $(MAN)/$(MANUAL)
 
 clean:
-	$(RM) *.o
-	$(RM) $(BINARY)
+	@rm -f *.o
+	@rm -f $(BINARY)
 
 uninstall: clean
-	$(RM) $(BIN)/$(BINARY)
-	$(RM) $(MAN)/$(MANUAL)
+	@rm -f $(BIN)/$(BINARY)
+	@rm -f $(MAN)/$(MANUAL)
 
 .PHONY: all install clean uninstall $(BINARY) $(OBJ)
