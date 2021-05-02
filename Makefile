@@ -29,15 +29,19 @@ OBJ = \
 COMPILE = $(CC) $(AM_CFLAGS) $(CFLAGS)
 LINK = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 
-all: $(BINARY)
+$(OBJ):
 	$(COMPILE) -c -o $*.o $*.c
+
+$(BINARY): $(OBJ)
 	$(LINK) $(OBJ) $(LDADD) $(LIBS)
+
+all: $(BINARY)
 
 install:
 	@mkdir -p $(BIN)
 	@mv $(BINARY) $(BIN)/$(BINARY)
 	@mkdir -p $(MAN)
-	@mv $(MANUAL) $(MAN)/$(MANUAL)
+	@cp -v $(MANUAL) $(MAN)/$(MANUAL)
 
 clean:
 	@rm -f *.o
